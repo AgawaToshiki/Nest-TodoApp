@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Response } from 'express';
 
@@ -11,5 +11,14 @@ export class AppController {
     return res.render(
       'index'
     )
+  }
+
+  @Post()
+  createTask(
+    @Body('title') title: string,
+    @Body('deadline') deadline: string
+  ){
+    this.appService.doPostTask()
+    return 'success!'
   }
 }
