@@ -3,5 +3,5 @@ export interface TaskType {
   title: string;
   deadline: string;
   createdAt: string;
-  updateAt: string;
+  updatedAt: string;
 }

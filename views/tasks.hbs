@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NestJS TodoApp</title>
+    </head>
+<body>
+    <div class="search-task">
+        <input type="text">
+        <button>検索</button>
+    </div>
+    <div class="tasks">         
+        {{#each tasks}}
+        <div>
+            <p>Task:{{title}}</p>
+            <p>Deadline:{{deadline}}</p>
+        </div>
+        <div>
+            <button>Edit</button>
+            <button>Delete</button>
+        </div>
+        {{/each}}
+    </div>
+</body>
+</html>
