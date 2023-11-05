@@ -16,9 +16,9 @@ export class AppController {
   @Post()
   createTask(
     @Body('title') title: string,
-    @Body('deadline') deadline: string
+    @Body('deadline') deadline: Date
   ){
-    this.appService.doPostTask()
-    return 'success!'
+    this.appService.doPostTask(title, deadline)
+    return console.log('success!')
   }
 }

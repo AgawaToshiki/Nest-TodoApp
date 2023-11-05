@@ -1,7 +1,8 @@
-import { Table, Column, Model } from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
 
 @Table
 export class Task extends Model<Task> {
+    @PrimaryKey
     @Column
     id: string;
     
@@ -9,11 +10,11 @@ export class Task extends Model<Task> {
     title: string;
 
     @Column
-    deadline: string;
+    deadline: Date;
 
     @Column
-    createdAt: string;
+    createdAt: Date;
 
     @Column
-    updatedAt: string;
+    updatedAt: Date;
 }
