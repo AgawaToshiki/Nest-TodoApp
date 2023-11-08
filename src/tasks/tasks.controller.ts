@@ -6,8 +6,8 @@ import { Response } from 'express';
 export class TasksController {
   constructor(private readonly tasksService: TasksService){}
   @Get()//Getリクエスト処理
-  root(@Res() res: Response) {
-    const tasks = this.tasksService.findAll()
+  async root(@Res() res: Response) {
+    const tasks = await this.tasksService.findAll()
     return res.render(
       'tasks',
       { tasks: tasks }
