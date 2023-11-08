@@ -13,14 +13,14 @@ export class AppController {
     )
   }
 
-  @Post()
-  async createTask(
-    @Body('title') title: string,
-    @Body('deadline') deadline: Date,
-    @Res() res: Response
-  ){
-    const newTask = await this.appService.doPostTask(title, deadline);
-    await newTask.save();
-    res.redirect('/tasks')
-  }
+  // @Post()
+  // async createTask(
+  //   @Body('title') title: string,
+  //   @Body('deadline') deadline: Date,
+  //   @Res() res: Response
+  // ){
+  //   const newTask = await this.appService.doPostTask(title, deadline);
+  //   await newTask.save();
+  //   res.redirect('/tasks')
+  // }
 }

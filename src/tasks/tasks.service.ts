@@ -1,14 +1,27 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Task } from './tasks.entity'
+import { Injectable } from '@nestjs/common';
+import { Task } from '../models/tasks.model'
+import { InjectModel } from '@nestjs/sequelize';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class TasksService {
   constructor(
-    @Inject('TASKS_REPOSITORY')
-    private taskRepository: typeof Task
+    @InjectModel(Task)
+    private taskModel: typeof Task
   ){}
 
   async findAll(): Promise<Task[]> {
-    return this.taskRepository.findAll<Task>();
+    return this.taskModel.findAll<Task>();
+  }
+
+  async doPostTask(title: string, deadline: Date): Promise<Task> {
+    //データベースcreate処理
+    const newTask = {
+      id: uuidv4(),
+      title: title,
+      deadline: deadline,
+      createdAt: new Date
+    }
+    return this.taskModel.create(newTask)
   }
 }

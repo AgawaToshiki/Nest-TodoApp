@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { TasksService } from './tasks.service'
 import { Response } from 'express';
 
@@ -12,5 +12,16 @@ export class TasksController {
       'tasks',
       { tasks: tasks }
     )
+  }
+
+  @Post()
+  async createTask(
+    @Body('title') title: string,
+    @Body('deadline') deadline: Date,
+    @Res() res: Response
+  ){
+    const newTask = await this.tasksService.doPostTask(title, deadline);
+    await newTask.save();
+    res.redirect('/tasks')
   }
 }
