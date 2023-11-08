@@ -3,7 +3,9 @@ import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
 @Table
 export class Task extends Model<Task> {
     @PrimaryKey
-    @Column
+    @Column({
+        allowNull: false,
+    })
     id: string;
     
     @Column
@@ -15,6 +17,9 @@ export class Task extends Model<Task> {
     @Column
     createdAt: Date;
 
-    @Column
+    @Column({
+        allowNull: true
+    })
     updatedAt: Date;
+
 }

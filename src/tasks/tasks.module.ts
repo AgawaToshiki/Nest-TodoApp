@@ -11,5 +11,6 @@ import { DatabaseModule } from '../database/database.module';
     TasksService,
     ...tasksProviders
   ],
+  exports: [...tasksProviders],
 })
 export class TasksModule {}
