@@ -16,10 +16,11 @@ export class AppController {
   @Post()
   async createTask(
     @Body('title') title: string,
-    @Body('deadline') deadline: Date
+    @Body('deadline') deadline: Date,
+    @Res() res: Response
   ){
     const newTask = await this.appService.doPostTask(title, deadline);
     await newTask.save();
-    return console.log('success!')
+    res.redirect('/tasks')
   }
 }
