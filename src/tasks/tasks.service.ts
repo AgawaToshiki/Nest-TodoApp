@@ -10,8 +10,16 @@ export class TasksService {
     private taskModel: typeof Task
   ){}
 
-  async doGetTask(): Promise<Task[]> {
+  async doGetAllTask(): Promise<Task[]> {
     return this.taskModel.findAll<Task>();
+  }
+
+  async doGetTask(id: string): Promise<Task> {
+    return this.taskModel.findOne({
+      where: {
+        id: id
+      }
+    })
   }
 
   async doPostTask(title: string, deadline: Date): Promise<Task> {

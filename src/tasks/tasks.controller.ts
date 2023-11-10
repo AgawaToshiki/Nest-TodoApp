@@ -8,10 +8,22 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService){}
   @Get()//Getリクエスト処理
   async root(@Res() res: Response) {
-    const tasks = await this.tasksService.doGetTask()
+    const tasks = await this.tasksService.doGetAllTask()
     return res.render(
-      'tasks',
+      'tasks/list',
       { tasks: tasks }
+    )
+  }
+
+  @Get('/edit/:id')
+  async editingTask(
+    @Param() id: string,
+    @Res() res: Response
+  ){
+    const task = await this.tasksService.doGetTask(id)
+    return res.render(
+      'tasks/edit',
+      { task: task }
     )
   }
 
@@ -36,4 +48,5 @@ export class TasksController {
     await this.tasksService.doDeleteTask(id);
     res.redirect('/tasks')
   }
+  
 }

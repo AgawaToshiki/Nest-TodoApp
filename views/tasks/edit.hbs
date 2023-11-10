@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NestJS TodoApp</title>
+        <link rel="stylesheet" type="text/css" href="/styles/tasks.css">
+    </head>
+<body>
+    <div class="tasks">
+        <form action="/task/edit/{{id}}" method="POST">
+            <input type="text" value="{{task.title}}">
+            <input type="datetime-local">
+            <button type="submit">Update</button>
+        </form>    
+    </div>
+</body>
+</html>
