@@ -4,21 +4,31 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NestJS TodoApp</title>
+        <link rel="stylesheet" type="text/css" href="/styles/tasks.css">
     </head>
 <body>
-    <div class="search-task">
-        <input type="text">
-        <button>検索</button>
-    </div>
-    <div class="tasks">         
+
+    <div class="tasks">
+            <button onclick="location.href='/'">新しいタスクを追加する</button>
+        <h1>Task一覧</h1>
+        <div class="search-task">
+            <input type="text">
+            <button>検索</button>
+        </div>      
         {{#each tasks}}
-        <div>
-            <p>Task:{{title}}</p>
-            <p>Deadline:{{deadline}}</p>
-        </div>
-        <div>
-            <button>Edit</button>
-            <button>Delete</button>
+        <div class="task-view">
+            <div>
+                <p>Task:{{title}}</p>
+                <p>Deadline:{{deadline}}</p>
+            </div>
+            <div>
+                <form action="/tasks/edit/{{id}}" method="UPDATE">
+                    <button type="submit" class="edit">Edit</button>
+                </form>
+                <form action="/tasks/delete/{{id}}" method="POST">
+                    <button type="submit" class="delete">Delete</button>
+                </form>
+            </div>
         </div>
         {{/each}}
     </div>

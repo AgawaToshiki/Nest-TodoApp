@@ -24,4 +24,12 @@ export class TasksService {
     }
     return this.taskModel.create(newTask)
   }
+
+  async doDeleteTask(id: string): Promise<number> {
+    return this.taskModel.destroy({
+      where: {
+        id: id
+      }
+    })
+  }
 }
