@@ -17,10 +17,11 @@ export class TasksController {
 
   @Get('/edit/:id')
   async editingTask(
-    @Param() id: string,
+    @Param('id') id: string,
     @Res() res: Response
   ){
     const task = await this.tasksService.doGetTask(id)
+    console.log(task)
     return res.render(
       'tasks/edit',
       { task: task }
