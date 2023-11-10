@@ -8,7 +8,7 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService){}
   @Get()//Getリクエスト処理
   async root(@Res() res: Response) {
-    const tasks = await this.tasksService.findAll()
+    const tasks = await this.tasksService.doGetTask()
     return res.render(
       'tasks',
       { tasks: tasks }

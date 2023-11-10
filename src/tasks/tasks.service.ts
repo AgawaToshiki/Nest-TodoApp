@@ -10,7 +10,7 @@ export class TasksService {
     private taskModel: typeof Task
   ){}
 
-  async findAll(): Promise<Task[]> {
+  async doGetTask(): Promise<Task[]> {
     return this.taskModel.findAll<Task>();
   }
 
@@ -23,6 +23,10 @@ export class TasksService {
       createdAt: new Date
     }
     return this.taskModel.create(newTask)
+  }
+
+  async doUpdateTask(id: string): Promise<Task> {
+    return
   }
 
   async doDeleteTask(id: string): Promise<number> {
