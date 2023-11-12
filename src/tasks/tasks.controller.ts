@@ -21,7 +21,6 @@ export class TasksController {
     @Res() res: Response
   ){
     const task = await this.tasksService.doGetTask(id)
-    console.log(task)
     return res.render(
       'tasks/edit',
       { task: task }
