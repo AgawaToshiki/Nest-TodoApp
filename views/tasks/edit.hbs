@@ -7,12 +7,17 @@
         <link rel="stylesheet" type="text/css" href="/styles/tasks.css">
     </head>
 <body>
-    <div class="tasks">
+    <h1>EditTask</h1>
         <form action="/task/edit/{{id}}" method="POST">
-            <input type="text" value="{{task.title}}">
-            <input type="datetime-local">
+            <div class="layout-flex">
+                <label for="title">Task:</label>
+                <input type="text" name="title" id="title" value="{{task.title}}">
+            </div>
+            <div>
+                <label for="deadline">Deadline:</label>
+                <input type="datetime-local" name="deadline" id="deadline">
+            </div>
             <button type="submit">Update</button>
-        </form>    
-    </div>
+        </form>  
 </body>
 </html>
