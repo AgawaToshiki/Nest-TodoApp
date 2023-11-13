@@ -10,6 +10,9 @@ export class TasksController {
   @Get()//Getリクエスト処理
   async root(@Res() res: Response) {
     const tasks = await this.tasksService.doGetAllTask()
+    const formatTasks = tasks.forEach((task) => {
+      format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm')
+    })
     return res.render(
       'tasks/list',
       { tasks: tasks }
@@ -22,10 +25,12 @@ export class TasksController {
     @Res() res: Response
   ){
     const task = await this.tasksService.doGetTask(id)
-    const formatDate = format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm')
     return res.render(
       'tasks/edit',
-      { title: task.title, deadline: formatDate }
+      { 
+        title: task.title, 
+        deadline: format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm') 
+      }
     )
   }
 
