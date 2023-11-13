@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { TasksService } from './tasks.service';
 import { CreateTaskDTO } from './tasks.dto';
+import { format } from 'date-fns';
 
 @Controller('tasks')//ルートパスを指定
 export class TasksController {
@@ -21,9 +22,10 @@ export class TasksController {
     @Res() res: Response
   ){
     const task = await this.tasksService.doGetTask(id)
+    const formatDate = format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm')
     return res.render(
       'tasks/edit',
-      { task: task }
+      { title: task.title, deadline: formatDate }
     )
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Task } from '../models/tasks.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
+import { format } from 'date-fns'
 
 @Injectable()
 export class TasksService {
@@ -22,12 +23,12 @@ export class TasksService {
     })
   }
 
-  async doPostTask(title: string, deadline: Date): Promise<Task> {
+  async doPostTask(title: string, deadline: string): Promise<Task> {
     //データベースcreate処理
     const newTask = {
       id: uuidv4(),
       title: title,
-      deadline: deadline,
+      deadline: new Date(deadline),
       createdAt: new Date
     }
     return this.taskModel.create(newTask)

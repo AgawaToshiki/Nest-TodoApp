@@ -4,7 +4,8 @@ export class CreateTaskDTO {
     @IsNotEmpty()
     @IsString()
     title: string;
-
+    
+    @IsString()
     @IsNotEmpty()
-    deadline: Date;
+    deadline: string;
 }
