@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { TasksService } from './tasks.service';
-import { CreateTaskDTO } from './tasks.dto'
+import { CreateTaskDTO } from './tasks.dto';
 
 @Controller('tasks')//ルートパスを指定
 export class TasksController {
