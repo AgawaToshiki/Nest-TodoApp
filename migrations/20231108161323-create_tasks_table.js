@@ -28,11 +28,5 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     await queryInterface.dropTable('Tasks');
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
   }
 };

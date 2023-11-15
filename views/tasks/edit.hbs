@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="/styles/tasks.css">
     </head>
 <body>
-    <h1>EditTask</h1>
+    {{>header}}
         <form action="/tasks/edit/{{id}}" method="POST">
             <div class="layout-flex">
                 <label for="title">Task:</label>

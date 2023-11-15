@@ -9,7 +9,9 @@ import { format } from 'date-fns';
 export class TasksController {
   constructor(private readonly tasksService: TasksService){}
   @Get()//Getリクエスト処理
-  async root(@Res() res: Response) {
+  async root(
+    @Res() res: Response
+  ){
     const tasks = await this.tasksService.doGetAllTask()
     const formatTasks = tasks.map((task) => {
       const formatDeadline: string = format(task.deadline, 'yyyy年M月d日H時m分')
@@ -21,7 +23,7 @@ export class TasksController {
     })
     return res.render(
       'tasks/list',
-      { tasks: formatTasks }
+      { tasks: formatTasks, pageTitle: 'Task一覧' }
     )
   }
 
@@ -36,7 +38,8 @@ export class TasksController {
       {
         id: id,
         title: task.title, 
-        deadline: format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm') 
+        deadline: format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm'),
+        pageTitle: 'Task編集'
       }
     )
   }
@@ -46,10 +49,14 @@ export class TasksController {
     @Body() TaskDTO: TaskDTO,
     @Res() res: Response
   ){
-    await this.tasksService.doPostTask(
-      TaskDTO
-    );
-    return res.redirect('/tasks')
+    try{
+      await this.tasksService.doPostTask(
+        TaskDTO
+      );
+      return res.redirect('/tasks')
+    } catch(error) {
+      console.error(error)
+    }
   }
 
   @Post('/edit/:id')
@@ -58,11 +65,15 @@ export class TasksController {
     @Body() TaskDTO: TaskDTO,
     @Res() res: Response
   ){
-    await this.tasksService.doUpdateTask(
-      id,
-      TaskDTO
-    );
-    return res.redirect('/tasks')
+    try{
+      await this.tasksService.doUpdateTask(
+        id,
+        TaskDTO
+      );
+      return res.redirect('/tasks')
+    } catch(error) {
+      console.error(error)
+    }
   }
 
   @Post('/delete/:id')
@@ -72,11 +83,10 @@ export class TasksController {
   ){
     try{
       await this.tasksService.doDeleteTask(id);
+      return res.redirect('/tasks')
     } catch(error) {
       console.error(error)
     }
-    // await this.tasksService.doDeleteTask(id);
-    return res.redirect('/tasks')
   }
   
 }
