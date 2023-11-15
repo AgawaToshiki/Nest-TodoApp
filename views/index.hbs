@@ -1,17 +1,17 @@
 {{>head}}
 <body>
     {{>header}}
-    <main class="top">
+    <main>
         <form action="./tasks" method="POST" class="add-task">
-            <div class="layout-flex">
+            <div class="submit-box">
                 <label for="title">Task:</label>
                 <input type="text" name="title" id="title">
             </div>
-            <div class="layout-flex">
+            <div class="submit-box">
                 <label for="deadline">Deadline:</label>
                 <input type="datetime-local" name="deadline" id="deadline">
             </div>
-            <button type="submit" class="task-button">Add</button>
+            <button type="submit" class="task-button register">Add</button>
         </form>
     </main>
 </body>

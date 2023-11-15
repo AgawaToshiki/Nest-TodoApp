@@ -2,15 +2,19 @@
 <body>
     {{>header}}
     <main>
-        <div class="tasks">
+        <div class="task-list">
             <div class="search-task">
-                <input type="text">
-                <button>検索</button>
+                <form action="/tasks" method="GET">
+                    <div class="submit-box">
+                        <input type="text" name="search">
+                        <button type="submit" class="task-button search">検索</button>
+                    </div>
+                </form>
             </div>      
             {{#each tasks}}
             <div class="task-card">
                 <div>
-                    <p>Task:{{title}}</p>
+                    <p class="task">Task:{{title}}</p>
                     <p>Deadline:{{deadline}}</p>
                 </div>
                 <div class="task-button-box">

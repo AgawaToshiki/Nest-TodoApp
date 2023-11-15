@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Task } from '../models/tasks.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
-import { format } from 'date-fns'
 import { TaskDTO } from './tasks.dto';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class TasksService {
@@ -22,6 +22,18 @@ export class TasksService {
         id: id
       }
     })
+  }
+
+  async doGetSearchTask(keyword: string): Promise<Task[]> {
+    const searchTasks = this.taskModel.findAll<Task>({
+      where: {
+        [Op.or]: [
+          { title: keyword },
+          { deadline: keyword }
+        ]
+      }
+    })
+    return searchTasks
   }
 
   async doPostTask(item: TaskDTO): Promise<Task> {

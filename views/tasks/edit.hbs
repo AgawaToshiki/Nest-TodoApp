@@ -2,16 +2,16 @@
 <body>
     {{>header}}
     <main>
-        <form action="/tasks/edit/{{id}}" method="POST">
-            <div class="layout-flex">
+        <form action="/tasks/edit/{{id}}" method="POST" class="add-task">
+            <div class="submit-box">
                 <label for="title">Task:</label>
                 <input type="text" name="title" id="title" value="{{title}}">
             </div>
-            <div>
+            <div class="submit-box">
                 <label for="deadline">Deadline:</label>
                 <input type="datetime-local" name="deadline" id="deadline" value="{{deadline}}">
             </div>
-            <button type="submit">Update</button>
+            <button type="submit" class="task-button register">Update</button>
         </form>
     </main>  
 </body>
