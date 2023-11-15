@@ -54,7 +54,7 @@ header ul {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 .submit-box label {
     width: 20%;
@@ -109,6 +109,9 @@ header ul {
     font-size: 16px;
 }
 
+.search-task {
+    margin-bottom: 30px;
+}
 .search {
     width: 15%;
 }

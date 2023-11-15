@@ -6,11 +6,12 @@ import { format } from 'date-fns';
 import { formatTasks } from '../utils';
 
 
-@Controller('tasks')//ルートパスを指定
+@Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService){}
+
   @Get()
-  async root(
+  async findAllTask(
     @Query('search') search: string,
     @Res() res: Response
   ){
@@ -19,15 +20,16 @@ export class TasksController {
       const formatSearchTasks = formatTasks(searchTasks);
       return res.render(
         'tasks/list',
-        { tasks: formatSearchTasks }
+        { tasks: formatSearchTasks, pageTitle: 'TaskList' }
+      );
+    }else{
+      const taskList = await this.tasksService.doGetAllTask();
+      const formatTaskList = formatTasks(taskList);
+      return res.render(
+        'tasks/list',
+        { tasks: formatTaskList, pageTitle: 'TaskList' }
       );
     }
-    const taskList = await this.tasksService.doGetAllTask();
-    const formatTaskList = formatTasks(taskList);
-    return res.render(
-      'tasks/list',
-      { tasks: formatTaskList, pageTitle: 'TaskList' }
-    );
   }
 
   @Get('/edit/:id')

@@ -27,17 +27,15 @@ export class TasksService {
   async doGetSearchTask(keyword: string): Promise<Task[]> {
     const searchTasks = this.taskModel.findAll<Task>({
       where: {
-        [Op.or]: [
-          { title: keyword },
-          { deadline: keyword }
-        ]
+        title: {
+          [Op.like]: `%${keyword}%`
+        }
       }
     })
     return searchTasks
   }
 
   async doPostTask(item: TaskDTO): Promise<Task> {
-    //データベースcreate処理
     const newTask = {
       id: uuidv4(),
       title: item.title,
