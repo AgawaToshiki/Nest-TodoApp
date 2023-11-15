@@ -3,6 +3,7 @@ import { Task } from '../models/tasks.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns'
+import { TaskDTO } from './tasks.dto';
 
 @Injectable()
 export class TasksService {
@@ -23,19 +24,30 @@ export class TasksService {
     })
   }
 
-  async doPostTask(title: string, deadline: string): Promise<Task> {
+  async doPostTask(item: TaskDTO): Promise<Task> {
     //データベースcreate処理
     const newTask = {
       id: uuidv4(),
-      title: title,
-      deadline: new Date(deadline),
+      title: item.title,
+      deadline: new Date(item.deadline),
       createdAt: new Date
     }
     return this.taskModel.create(newTask)
   }
 
-  async doUpdateTask(id: string): Promise<Task> {
-    return
+  async doUpdateTask(id: string, item: TaskDTO): Promise<number>{
+    const [affectedCount] = await this.taskModel.update(
+      {
+        title: item.title,
+        deadline: new Date(item.deadline)
+      },
+      {
+        where: {
+          id: id
+        }
+      }
+    )
+    return affectedCount
   }
 
   async doDeleteTask(id: string): Promise<number> {
