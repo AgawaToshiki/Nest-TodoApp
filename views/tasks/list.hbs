@@ -10,7 +10,8 @@
                         <button type="submit" class="task-button search">検索</button>
                     </div>
                 </form>
-            </div>      
+            </div>
+            {{#if tasks}}    
             {{#each tasks}}
             <div class="task-card">
                 <div>
@@ -27,6 +28,11 @@
                 </div>
             </div>
             {{/each}}
+            {{else}}
+            <div class="empty-task">
+                NO HIT TASKS
+            </div>
+            {{/if}}
         </div>
     </main>
 </body>
