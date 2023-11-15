@@ -4,12 +4,21 @@
     <main>
         <div class="task-list">
             <div class="search-task">
+                {{#if search}}
+                <form action="/tasks" method="GET">
+                    <div class="submit-box">
+                        <input type="text" name="search" value="{{search}}" disabled>
+                        <button type="submit" class="task-button search">クリア</button>
+                    </div>
+                </form>
+                {{else}}
                 <form action="/tasks" method="GET">
                     <div class="submit-box">
                         <input type="text" name="search">
                         <button type="submit" class="task-button search">検索</button>
                     </div>
                 </form>
+                {{/if}}
             </div>
             {{#if tasks}}    
             {{#each tasks}}

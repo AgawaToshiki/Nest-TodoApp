@@ -20,14 +20,22 @@ export class TasksController {
       const formatSearchTasks = formatTasks(searchTasks);
       return res.render(
         'tasks/list',
-        { tasks: formatSearchTasks, pageTitle: 'TaskList' }
+        { 
+          tasks: formatSearchTasks,
+          search: search,
+          pageTitle: 'TaskList' 
+        }
       );
     }else{
       const taskList = await this.tasksService.doGetAllTask();
       const formatTaskList = formatTasks(taskList);
       return res.render(
         'tasks/list',
-        { tasks: formatTaskList, pageTitle: 'TaskList' }
+        { 
+          tasks: formatTaskList,
+          search: !!search,
+          pageTitle: 'TaskList'
+        }
       );
     }
   }
