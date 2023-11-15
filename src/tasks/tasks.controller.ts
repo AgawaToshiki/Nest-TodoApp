@@ -23,7 +23,7 @@ export class TasksController {
     })
     return res.render(
       'tasks/list',
-      { tasks: formatTasks, pageTitle: 'Task一覧' }
+      { tasks: formatTasks, pageTitle: 'TaskList' }
     )
   }
 
@@ -39,7 +39,7 @@ export class TasksController {
         id: id,
         title: task.title, 
         deadline: format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm'),
-        pageTitle: 'Task編集'
+        pageTitle: 'TaskEdit'
       }
     )
   }
