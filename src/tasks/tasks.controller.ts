@@ -46,12 +46,14 @@ export class TasksController {
     @Res() res: Response
   ){
     const task = await this.tasksService.doGetTask(id);
+    const currentDate = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm');
     return res.render(
       'tasks/edit',
       {
         id: id,
         title: task.title, 
         deadline: format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm'),
+        currentDate: currentDate,
         pageTitle: 'Edit'
       }
     );
