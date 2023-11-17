@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Param, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, UseGuards, Get, Param, Post, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { TasksService } from './tasks.service';
 import { TaskDTO } from './tasks.dto';
 import { format } from 'date-fns';
@@ -9,6 +10,7 @@ import { formatTasks } from '../utils';
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService){}
+  // @UseGuards(LocalAuthGuard)
 
   @Get()
   async findAllTask(
@@ -38,6 +40,17 @@ export class TasksController {
         }
       );
     }
+  }
+
+  @Get('/add')
+  addTask(
+    @Res() res: Response
+  ){
+    const currentDate = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm');
+    return res.render(
+      'tasks/add',
+      { pageTitle: 'Add', currentDate: currentDate }
+    )
   }
 
   @Get('/edit/:id')

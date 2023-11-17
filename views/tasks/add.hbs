@@ -1,0 +1,18 @@
+{{>head}}
+<body>
+    {{>header}}
+    <main>
+        <form action="/tasks" method="POST" class="add-task" autocomplete="off">
+            <div class="submit-box">
+                <label for="title">Task:</label>
+                <input type="text" name="title" id="title">
+            </div>
+            <div class="submit-box">
+                <label for="deadline">Deadline:</label>
+                <input type="datetime-local" name="deadline" min="{{currentDate}}" id="deadline">
+            </div>
+            <button type="submit" class="submit-button register">Add</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -15,6 +15,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -91,13 +92,13 @@ header ul {
 }
 
 
-.task-button-box {
+.submit-button-box {
     display: flex;
     align-items: center;
     column-gap: 5px;
     margin: 10px 0;
 }
-.task-button {
+.submit-button {
     padding: 5px 10px;
     background-color: #FEC463;
     border: 2px #1f1e1e solid;
@@ -105,7 +106,7 @@ header ul {
     cursor: pointer;
     font-size: 12px;
 }
-.task-button:hover {
+.submit-button:hover {
     background-color: rgba(254, 196, 99, 0.7);
 }
 .register {
