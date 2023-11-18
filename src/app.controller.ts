@@ -1,20 +1,21 @@
-import { Controller, Get, Post, Res, Req, UseGuards } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Post, Res, Req, UseGuards, Body } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { LocalAuthGuard } from './auth/local-auth.guard';
+import { AuthService } from './auth/auth.service';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { SignInDTO } from './auth/auth.dto';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private authService: AuthService) {}
 
   @Get()
   root(
-    @Res() res: Response
+    @Res() res: Response,
   ){
     return res.render(
       'index',
       { pageTitle: 'Todo-App' }
-    )
+    );
   }
 
   @Get('/login')
@@ -37,9 +38,11 @@ export class AppController {
     );
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('/login')
-  async login(@Req() req: Request) {
-    return req.user
+  async login(
+    @Body() signInDTO: SignInDTO,
+    // @Req() req: Request
+  ) {
+    return this.authService.login(signInDTO);
   }
 }

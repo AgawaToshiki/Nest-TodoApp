@@ -1,6 +1,6 @@
 import { Body, Controller, UseGuards, Get, Param, Post, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { TasksService } from './tasks.service';
 import { TaskDTO } from './tasks.dto';
 import { format } from 'date-fns';
@@ -10,8 +10,8 @@ import { formatTasks } from '../utils';
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService){}
-  // @UseGuards(LocalAuthGuard)
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAllTask(
     @Query('search') search: string,
