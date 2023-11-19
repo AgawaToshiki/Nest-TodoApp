@@ -12,6 +12,9 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(username);
+    if (!user) {
+      throw new UnauthorizedException('未登録のユーザーです。');
+    }
     if (user && user.password === pass) {
       const { password, ...result } = user;
       return result;
@@ -19,7 +22,7 @@ export class AuthService {
     return null;
   }
 
-  async login(user: SignInDTO) {
+  async login(user: SignInDTO): Promise<{ access_token: string }> {
     const validate = await this.validateUser(user.username, user.password);
     if(!validate) {
       throw new UnauthorizedException();
