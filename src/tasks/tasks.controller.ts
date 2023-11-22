@@ -11,8 +11,8 @@ import { formatTasks } from '../utils';
 export class TasksController {
   constructor(private readonly tasksService: TasksService){}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
+  @UseGuards(JwtAuthGuard)
   async findAllTask(
     @Query('search') search: string,
     @Res() res: Response

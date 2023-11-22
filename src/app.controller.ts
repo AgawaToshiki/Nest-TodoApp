@@ -41,8 +41,11 @@ export class AppController {
   @Post('/login')
   async login(
     @Body() signInDTO: SignInDTO,
-    // @Req() req: Request
+    @Res() res: Response
   ) {
-    return this.authService.login(signInDTO);
+    const token = await this.authService.login(signInDTO);
+    return res.json({
+      token: token.access_token
+    });
   }
 }
