@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Res, Req, UseGuards, Body } from '@nestjs/common';
+import { Controller, Get, Post, Res, Req, UseGuards, Body, HttpCode } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { SignInDTO } from './auth/auth.dto';
+import { LocalAuthGuard } from './auth/local-auth.guard';
 
 @Controller()
 export class AppController {
@@ -37,15 +37,13 @@ export class AppController {
       { pageTitle: 'Register' }
     );
   }
-
+  @UseGuards(LocalAuthGuard)
   @Post('/login')
+  @HttpCode(200)
   async login(
-    @Body() signInDTO: SignInDTO,
-    @Res() res: Response
+    // @Body() signInDTO: SignInDTO,
+    @Req() req: Request
   ) {
-    const token = await this.authService.login(signInDTO);
-    return res.json({
-      token: token.access_token
-    });
+    return req.user;
   }
 }
