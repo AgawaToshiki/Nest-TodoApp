@@ -12,7 +12,7 @@ export class TasksController {
   constructor(private readonly tasksService: TasksService){}
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   async findAllTask(
     @Query('search') search: string,
     @Res() res: Response

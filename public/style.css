@@ -11,6 +11,12 @@ header {
     width: 500px;
     margin: 0 auto 20px;
 }
+.h-title {
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    margin: 0 auto 20px;
+}
 main {
     display: flex;
     justify-content: center;
@@ -33,6 +39,7 @@ header ul {
     position: relative;
     top: 0;
     display: inline-block;
+    width: 50px;
     padding: 10px 40px;
     background-color: #FEC463;
     border-radius: 5px;
@@ -40,6 +47,7 @@ header ul {
     font-weight: bold;
     font-size: 20px;
     text-decoration: none;
+    text-align: center;
     transition: all .1s;
 }
 .nav-list a:hover {
@@ -98,6 +106,10 @@ header ul {
     column-gap: 5px;
     margin: 10px 0;
 }
+.submit-button-box.login {
+    justify-content: center;
+    width: 500px;
+}
 .submit-button {
     padding: 5px 10px;
     background-color: #FEC463;
@@ -108,6 +120,16 @@ header ul {
 }
 .submit-button:hover {
     background-color: rgba(254, 196, 99, 0.7);
+}
+.login-button {
+    width: 150px;
+    padding: 10px 40px;
+    background-color: #FEC463;
+    border: 2px #1f1e1e solid;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
 }
 .register {
     width: 100%;
