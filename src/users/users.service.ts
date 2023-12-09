@@ -29,21 +29,4 @@ export class UsersService {
         }
       })
   }
-
-  // private readonly users = [
-  //     {
-  //         userID: '1',
-  //         username: 'john',
-  //         password: bcrypt.hash('test', 12),
-  //     },
-  //     {
-  //         userID: '2',
-  //         username: 'maria',
-  //         password: bcrypt.hash('test2', 12),
-  //     }
-  // ];
-
-  // async findByUsername(username: string): Promise<User | undefined> {
-  //     return this.users.find(user => user.username === username);
-  // }
 }

@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Res, UseGuards, HttpCode, Body } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Post, Res, UseGuards, HttpCode, Body, Req } from '@nestjs/common';
+import { Response, Request } from 'express';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { UsersService } from './users/users.service';
 import { UserDTO } from './users/user.dto';
@@ -53,7 +53,30 @@ export class AppController {
     @Body() userDTO: UserDTO,
     @Res() res: Response
   ){
-    const createUser = await this.usersService.createUser(userDTO);
+    try{
+      await this.usersService.createUser(userDTO);
+      return res.redirect('/login');
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  @Post('/logout')
+  async logout(
+    @Req() req: Request,
+    @Res() res: Response
+  ): Promise<void>{
+    try{
+      req.session.destroy((err) => {
+        if(err) {
+          console.log(err)
+        }else{
+          res.redirect('/')
+        }
+      })
+    } catch(error) {
+      console.error(error);
+    }
   }
 
 }

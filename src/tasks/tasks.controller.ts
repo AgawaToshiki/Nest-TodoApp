@@ -8,10 +8,10 @@ import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
 
 @Controller('tasks')
+@UseGuards(AuthenticatedGuard)
 export class TasksController {
   constructor(private readonly tasksService: TasksService){}
 
-  @UseGuards(AuthenticatedGuard)
   @Get()
   async findAllTask(
     @Query('search') search: string,
