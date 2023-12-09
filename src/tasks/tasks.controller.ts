@@ -24,11 +24,11 @@ export class TasksController {
       const formatSearchTasks = formatTasks(searchTasks);
       return res.render(
         'tasks/list',
-        { 
+        {
           tasks: formatSearchTasks,
           search: search,
           pageTitle: 'TaskList',
-          user: user 
+          user: user
         }
       );
     }else{

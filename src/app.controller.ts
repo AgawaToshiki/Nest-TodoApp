@@ -1,12 +1,12 @@
-import { Controller, Get, Post, Res, Req, UseGuards, Body, HttpCode } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { AuthService } from './auth/auth.service';
-import { SignInDTO } from './auth/auth.dto';
+import { Controller, Get, Post, Res, UseGuards, HttpCode, Body } from '@nestjs/common';
+import { Response } from 'express';
 import { LocalAuthGuard } from './auth/local-auth.guard';
+import { UsersService } from './users/users.service';
+import { UserDTO } from './users/user.dto';
 
 @Controller()
 export class AppController {
-  constructor(private authService: AuthService) {}
+  constructor(private usersService: UsersService) {}
 
   @Get()
   root(
@@ -28,6 +28,15 @@ export class AppController {
     );
   }
 
+  @UseGuards(LocalAuthGuard)
+  @Post('/login')
+  @HttpCode(200)
+  async login(
+    @Res() res: Response
+  ) {
+    return res.redirect("/tasks")
+  }
+
   @Get('/register')
   async GetRegister(
     @Res() res: Response
@@ -37,13 +46,14 @@ export class AppController {
       { pageTitle: 'Register' }
     );
   }
-  @UseGuards(LocalAuthGuard)
-  @Post('/login')
+
+  @Post('/register')
   @HttpCode(200)
-  async login(
-    // @Body() signInDTO: SignInDTO,
-    @Req() req: Request
-  ) {
-    return req.user;
+  async register(
+    @Body() userDTO: UserDTO,
+    @Res() res: Response
+  ){
+    const createUser = await this.usersService.createUser(userDTO);
   }
+
 }

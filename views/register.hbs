@@ -1,0 +1,18 @@
+{{>head}}
+<body>
+    <h1 class="h-title">{{pageTitle}}</h1>
+    <main>
+        <form action="/register" id="register" method="POST" class="add-task" autocomplete="off">
+            <div class="submit-box">
+                <label for="username">User:</label>
+                <input type="text" name="username" id="username">
+            </div>
+            <div class="submit-box">
+                <label for="password">Password:</label>
+                <input type="text" name="password" id="password">
+            </div>
+            <button type="submit" class="submit-button register">Register</button>
+        </form>
+    </main>
+</body>
+</html>
