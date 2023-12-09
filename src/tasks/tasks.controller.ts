@@ -1,5 +1,5 @@
 import { Body, Controller, UseGuards, Get, Param, Post, Query, Res, Req } from '@nestjs/common';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { TasksService } from './tasks.service';
 import { TaskDTO } from './tasks.dto';
 import { format } from 'date-fns';
@@ -16,7 +16,7 @@ export class TasksController {
   async findAllTask(
     @Query('search') search: string,
     @Res() res: Response,
-    @Req() req: any
+    @Req() req: Request
   ){
     const user = req.user
     if(search){
