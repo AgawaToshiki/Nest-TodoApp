@@ -32,7 +32,7 @@ export class AppController {
   @Post('/login')
   @HttpCode(200)
   async login(
-    @Res() res: Response
+    @Res() res: Response,
   ) {
     return res.redirect("/tasks")
   }

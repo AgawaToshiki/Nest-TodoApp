@@ -1,5 +1,5 @@
-import { Body, Controller, UseGuards, Get, Param, Post, Query, Res, Req } from '@nestjs/common';
-import { Response, Request } from 'express';
+import { Body, Controller, UseGuards, Get, Param, Post, Query, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { TasksService } from './tasks.service';
 import { TaskDTO } from './tasks.dto';
 import { format } from 'date-fns';
@@ -15,10 +15,8 @@ export class TasksController {
   @Get()
   async findAllTask(
     @Query('search') search: string,
-    @Res() res: Response,
-    @Req() req: Request
+    @Res() res: Response
   ){
-    const user = req.user
     if(search){
       const searchTasks = await this.tasksService.doGetSearchTask(search);
       const formatSearchTasks = formatTasks(searchTasks);
@@ -28,7 +26,6 @@ export class TasksController {
           tasks: formatSearchTasks,
           search: search,
           pageTitle: 'TaskList',
-          user: user
         }
       );
     }else{
@@ -40,7 +37,6 @@ export class TasksController {
           tasks: formatTaskList,
           search: !!search,
           pageTitle: 'TaskList',
-          user: user
         }
       );
     }
