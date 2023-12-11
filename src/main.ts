@@ -4,17 +4,18 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import * as hbs from "hbs";
 import * as session from 'express-session';
 import * as passport from 'passport';
+import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 
 async function bootstrap() {
+  dotenv.config();
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
+  const sessionSecret = process.env.SESSION_SECRET || 'default_session_secret';
   app.use(
     session({
-      // secret: process.env.APP_SECRET,
-      secret: 'secret Key',
+      secret: sessionSecret,
       resave: false,
       saveUninitialized: false,
       cookie: {

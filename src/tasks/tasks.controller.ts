@@ -73,13 +73,6 @@ export class TasksController {
     );
   }
 
-  @Get('/test')
-  async test(
-    @Req() req: { user: { id: string, username: string } }
-  ){
-    return req.user.id
-  }
-
   @Post()
   async createTask(
     @Body() taskDTO: TaskDTO,
