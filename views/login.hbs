@@ -1,6 +1,18 @@
 {{>head}}
 <body>
-    <h1 class="h-title">{{pageTitle}}</h1>
+    <header>
+        <h1>{{pageTitle}}</h1>
+        <nav id="nav">
+            <ul>
+                <li class="nav-list">
+                    <a href="/">Top</a>
+                </li>
+                <li class="nav-list">
+                    <a href="/register">Register</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <main>
         <form action="/login" id="login" method="POST" class="add-task" autocomplete="off">
             <div class="submit-box">

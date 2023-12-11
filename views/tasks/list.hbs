@@ -8,14 +8,14 @@
                 <form action="/tasks" method="GET">
                     <div class="submit-box">
                         <input type="text" name="search" value="{{search}}" disabled>
-                        <button type="submit" class="submit-button search">クリア</button>
+                        <button type="submit" class="submit-button search">Clear</button>
                     </div>
                 </form>
                 {{else}}
                 <form action="/tasks" method="GET" autocomplete="off">
                     <div class="submit-box">
                         <input type="text" name="search">
-                        <button type="submit" class="submit-button search">検索</button>
+                        <button type="submit" class="submit-button search">Search</button>
                     </div>
                 </form>
                 {{/if}}

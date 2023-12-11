@@ -14,7 +14,7 @@ export class AppController {
   ){
     return res.render(
       'index',
-      { pageTitle: 'Todo-App' }
+      { pageTitle: 'Welcome to Todo-App!!!' }
     );
   }
 

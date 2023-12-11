@@ -1,7 +1,18 @@
 body {
+    margin: 0;
+    padding: 0;
     color: #1f1e1e;
     background-color: #F2F0E9;
     font-size: 16px;
+}
+body.top-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 header {
     display: flex;
@@ -11,11 +22,9 @@ header {
     width: 500px;
     margin: 0 auto 20px;
 }
-.h-title {
-    display: flex;
+header.top {
     justify-content: center;
-    width: 500px;
-    margin: 0 auto 20px;
+    margin: 15px auto;
 }
 main {
     display: flex;
@@ -23,6 +32,9 @@ main {
     align-items: center;
     flex-direction: column;
     width: 100%;
+}
+main.top {
+    margin: 15px auto;
 }
 
 
@@ -39,10 +51,11 @@ header ul {
     position: relative;
     top: 0;
     display: inline-block;
-    width: 50px;
-    padding: 10px 40px;
-    background-color: #FEC463;
-    border-radius: 5px;
+    width: 100px;
+    padding: 10px 0px;
+    /* background-color: #FEC463; */
+    /* border-bottom: 3px #1f1e1e solid; */
+    /* border-radius: 5px; */
     color: #1f1e1e;
     font-weight: bold;
     font-size: 20px;
@@ -50,9 +63,20 @@ header ul {
     text-align: center;
     transition: all .1s;
 }
+.nav-list a::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #1f1e1e;
+    border-radius: 3px;
+    bottom: 0;
+    left: 0;
+}
 .nav-list a:hover {
     top: -3px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3); */
 }
 
 
@@ -108,6 +132,7 @@ header ul {
 }
 .submit-button-box.login {
     justify-content: center;
+    column-gap: 30px;
     width: 500px;
 }
 .submit-button {
@@ -121,9 +146,16 @@ header ul {
 .submit-button:hover {
     background-color: rgba(254, 196, 99, 0.7);
 }
+.submit-button.invisible {
+    margin-left: 20px;
+    background-color: rgba(31,30,30,0);
+}
+.submit-button.invisible:hover {
+    background-color: rgba(31,30,30,0.1);
+}
 .login-button {
-    width: 150px;
-    padding: 10px 40px;
+    width: 135px;
+    padding: 15px 0;
     background-color: #FEC463;
     border: 2px #1f1e1e solid;
     border-radius: 5px;
