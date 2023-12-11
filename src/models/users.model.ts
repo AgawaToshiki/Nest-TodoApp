@@ -1,4 +1,5 @@
-import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, HasMany } from 'sequelize-typescript';
+import { Task } from './tasks.model';
 
 @Table
 export class User extends Model<User> {
@@ -21,4 +22,7 @@ export class User extends Model<User> {
         allowNull: true
     })
     updatedAt: Date;
+
+    @HasMany(() => Task)
+    tasks: Task[]
 }

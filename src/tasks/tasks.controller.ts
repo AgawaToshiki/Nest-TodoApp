@@ -1,4 +1,4 @@
-import { Body, Controller, UseGuards, Get, Param, Post, Query, Res } from '@nestjs/common';
+import { Body, Controller, UseGuards, Get, Param, Post, Query, Res, Req } from '@nestjs/common';
 import { Response } from 'express';
 import { TasksService } from './tasks.service';
 import { TaskDTO } from './tasks.dto';
@@ -15,7 +15,8 @@ export class TasksController {
   @Get()
   async findAllTask(
     @Query('search') search: string,
-    @Res() res: Response
+    @Res() res: Response,
+    @Req() req: { user: { id: string, username: string } }
   ){
     if(search){
       const searchTasks = await this.tasksService.doGetSearchTask(search);
@@ -29,7 +30,7 @@ export class TasksController {
         }
       );
     }else{
-      const taskList = await this.tasksService.doGetAllTask();
+      const taskList = await this.tasksService.doGetAllTask(req.user.id);
       const formatTaskList = formatTasks(taskList);
       return res.render(
         'tasks/list',
@@ -72,14 +73,23 @@ export class TasksController {
     );
   }
 
+  @Get('/test')
+  async test(
+    @Req() req: { user: { id: string, username: string } }
+  ){
+    return req.user.id
+  }
+
   @Post()
   async createTask(
     @Body() taskDTO: TaskDTO,
-    @Res() res: Response
+    @Res() res: Response,
+    @Req() req: { user: { id: string, username: string } }
   ){
     try{
       await this.tasksService.doPostTask(
-        taskDTO
+        taskDTO,
+        req.user.id
       );
       return res.redirect('/tasks');
     } catch(error) {

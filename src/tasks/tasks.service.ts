@@ -12,8 +12,12 @@ export class TasksService {
     private taskModel: typeof Task
   ){}
 
-  async doGetAllTask(): Promise<Task[]> {
-    return this.taskModel.findAll<Task>();
+  async doGetAllTask(id: string): Promise<Task[]> {
+    return this.taskModel.findAll<Task>({
+      where: {
+        userid: id
+      }
+    });
   }
 
   async doGetTask(id: string): Promise<Task> {
@@ -35,12 +39,13 @@ export class TasksService {
     return searchTasks
   }
 
-  async doPostTask(item: TaskDTO): Promise<Task> {
+  async doPostTask(item: TaskDTO, id: string): Promise<Task> {
     const newTask = {
       id: uuidv4(),
       title: item.title,
       deadline: new Date(item.deadline),
-      createdAt: new Date
+      createdAt: new Date,
+      userid: id
     }
     return this.taskModel.create(newTask)
   }
