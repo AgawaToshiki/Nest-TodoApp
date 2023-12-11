@@ -23,6 +23,6 @@ export class User extends Model<User> {
     })
     updatedAt: Date;
 
-    @HasMany(() => Task)
+    @HasMany(() => Task, 'userid')
     tasks: Task[]
 }

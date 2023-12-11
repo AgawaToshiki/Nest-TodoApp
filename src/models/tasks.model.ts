@@ -29,6 +29,6 @@ export class Task extends Model<Task> {
     })
     userid: string;
 
-    @BelongsTo(() => User)
+    @BelongsTo(() => User, 'userid')
     user: User
 }

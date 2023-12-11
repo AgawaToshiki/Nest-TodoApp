@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import { TaskDTO } from './tasks.dto';
 import { Op } from 'sequelize';
+import { User } from 'src/models/users.model';
 
 @Injectable()
 export class TasksService {
@@ -14,9 +15,13 @@ export class TasksService {
 
   async doGetAllTask(id: string): Promise<Task[]> {
     return this.taskModel.findAll<Task>({
-      where: {
-        userid: id
-      }
+      attributes:['title', 'deadline'],
+      include: [
+        { 
+          model: User, 
+          where: { id: id } 
+        }
+      ]
     });
   }
 
