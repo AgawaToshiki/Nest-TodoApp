@@ -5,11 +5,11 @@
         <form action="/tasks" method="POST" class="add-task" autocomplete="off">
             <div class="submit-box">
                 <label for="title">Task:</label>
-                <input type="text" name="title" id="title">
+                <input type="text" name="title" id="title" required>
             </div>
             <div class="submit-box">
                 <label for="deadline">Deadline:</label>
-                <input type="datetime-local" name="deadline" min="{{currentDate}}" id="deadline">
+                <input type="datetime-local" name="deadline" min="{{currentDate}}" id="deadline" required>
             </div>
             <button type="submit" class="submit-button register">Add</button>
         </form>
