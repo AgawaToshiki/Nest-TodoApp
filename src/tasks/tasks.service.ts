@@ -15,7 +15,7 @@ export class TasksService {
 
   async doGetAllTask(id: string): Promise<Task[]> {
     return this.taskModel.findAll<Task>({
-      attributes:['title', 'deadline'],
+      attributes:['title', 'deadline', 'id'],
       include: [
         { 
           model: User, 
@@ -33,8 +33,14 @@ export class TasksService {
     })
   }
 
-  async doGetSearchTask(keyword: string): Promise<Task[]> {
+  async doGetSearchTask(keyword: string, id: string): Promise<Task[]> {
     const searchTasks = this.taskModel.findAll<Task>({
+      include:[
+        {
+          model: User,
+          where: { id: id }
+        }
+      ],
       where: {
         title: {
           [Op.like]: `%${keyword}%`

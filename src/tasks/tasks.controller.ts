@@ -19,7 +19,7 @@ export class TasksController {
     @Req() req: { user: { id: string, username: string } }
   ){
     if(search){
-      const searchTasks = await this.tasksService.doGetSearchTask(search);
+      const searchTasks = await this.tasksService.doGetSearchTask(search, req.user.id);
       const formatSearchTasks = formatTasks(searchTasks);
       return res.render(
         'tasks/list',
