@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { User } from '../models/users.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
@@ -13,13 +13,16 @@ export class UsersService {
   ){}
 
   async createUser(user: UserDTO): Promise<User> {
-      const newTask = {
+    if(user.username.trim() == "" || user.password.trim() == ""){
+      throw new BadRequestException();
+    }
+      const newUser = {
         id: uuidv4(),
         username: user.username,
         password: await bcrypt.hash(user.password, 12),
         createdAt: new Date
       }
-      return this.userModel.create(newTask)
+      return this.userModel.create(newUser)
     }
   
   async findByUsername(username: string): Promise<User> {

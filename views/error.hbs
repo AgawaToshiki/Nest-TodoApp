@@ -1,11 +1,15 @@
 {{>head}}
-<body>
-      <h1>Error</h1>
+<body class="top-page">
+      <h1 class="top">Error</h1>
       <p>{{message}}:{{status}}</p>
       {{#if user}}
-      <a href="/tasks">Back to TaskList</a>
+        <div class="button-box wrapper">
+            <a href="/tasks" class="button large-button">Back to TaskList</a>
+        </div>
       {{else}}
-      <a href="/">Back to Top</a>
+        <div class="button-box wrapper center-wrap">
+            <a href="/" class="button large-button">Back to Top</a>
+        </div>
       {{/if}}
 </body>
 </html>

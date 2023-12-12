@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Task } from '../models/tasks.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
@@ -57,6 +57,9 @@ export class TasksService {
   }
 
   async doPostTask(item: TaskDTO, userId: string): Promise<Task> {
+    if(item.title.trim() == ""){
+      throw new BadRequestException();
+    }
     const newTask = {
       id: uuidv4(),
       title: item.title,
@@ -68,6 +71,9 @@ export class TasksService {
   }
 
   async doUpdateTask(item: TaskDTO, id: string, userId: string): Promise<number>{
+    if(item.title.trim() == ""){
+      throw new BadRequestException();
+    }
     const [affectedCount] = await this.taskModel.update(
       {
         title: item.title,

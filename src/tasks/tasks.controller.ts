@@ -91,11 +91,11 @@ export class TasksController {
     @Res() res: Response,
     @Req() req: { user: RequestUser }
   ){
-      await this.tasksService.doPostTask(
-        taskDTO,
-        req.user.id
-      );
-      return res.redirect('/tasks');
+    await this.tasksService.doPostTask(
+      taskDTO,
+      req.user.id
+    );
+    return res.redirect('/tasks');
   }
 
   @Post('/edit/:id')
@@ -105,15 +105,15 @@ export class TasksController {
     @Res() res: Response,
     @Req() req: { user: RequestUser }
   ){
-      const task = await this.tasksService.doUpdateTask(
-        taskDTO,
-        id,
-        req.user.id
-      );
-      if(!task){
-        throw new NotFoundException()
-      }
-      return res.redirect('/tasks');
+    const task = await this.tasksService.doUpdateTask(
+      taskDTO,
+      id,
+      req.user.id
+    );
+    if(!task){
+      throw new NotFoundException()
+    }
+    return res.redirect('/tasks');
   }
 
   @Post('/delete/:id')
@@ -122,11 +122,11 @@ export class TasksController {
     @Res() res: Response,
     @Req() req: { user: RequestUser }
   ){
-      const task = await this.tasksService.doDeleteTask(id, req.user.id);
-      if(!task){
-        throw new NotFoundException()
-      }
-      return res.redirect('/tasks')
+    const task = await this.tasksService.doDeleteTask(id, req.user.id);
+    if(!task){
+      throw new NotFoundException()
+    }
+    return res.redirect('/tasks')
   }
   
 }

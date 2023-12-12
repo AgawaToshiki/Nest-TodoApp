@@ -9,18 +9,24 @@
             <li class="nav-list">
                 <a href="/tasks">List</a>
             </li>
-            <div class="submit-button-box">
+            <div class="button-box">
                 <form action="/logout" method="POST">
-                    <button class="submit-button logout">Logout</button>
+                    <button class="button logout">Logout</button>
                 </form>
             </div>
             {{else}}
             <li class="nav-list">
                 <a href="/">Top</a>
             </li>
+            {{#if pageFlag}}
+            <li class="nav-list">
+                <a href="/login">Login</a>
+            </li>
+            {{else}}
             <li class="nav-list">
                 <a href="/register">Register</a>
             </li>
+            {{/if}}
             {{/if}}
         </ul>
     </nav>

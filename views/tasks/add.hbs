@@ -2,7 +2,7 @@
 <body>
     {{>header}}
     <main>
-        <form action="/tasks" method="POST" class="add-task" autocomplete="off">
+        <form action="/tasks" method="POST" class="wrapper" autocomplete="off">
             <div class="submit-box">
                 <label for="title">Task:</label>
                 <input type="text" name="title" id="title" required>
@@ -11,7 +11,7 @@
                 <label for="deadline">Deadline:</label>
                 <input type="datetime-local" name="deadline" min="{{currentDate}}" id="deadline" required>
             </div>
-            <button type="submit" class="submit-button register">Add</button>
+            <button type="submit" class="button register">Add</button>
         </form>
     </main>
 </body>

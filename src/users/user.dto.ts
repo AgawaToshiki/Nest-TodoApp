@@ -1,12 +1,15 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, MinLength, IsAlphanumeric } from "class-validator";
 
 export class UserDTO {
 
-    @IsNotEmpty({ message: 'ユーザー名は必須です。' })
+    @IsNotEmpty()
     @IsString()
+    @IsAlphanumeric()
     username: string;
     
-    @IsNotEmpty({ message: 'パスワードは必須です。' })
+    @IsNotEmpty()
     @IsString()
+    @IsAlphanumeric()
+    @MinLength(8, {message: "パスワードは8文字以上が必須です。"})
     password: string;
 }

@@ -24,7 +24,7 @@ export class AppController {
   ){
     return res.render(
       'login',
-      { pageTitle: 'Login' }
+      { pageTitle: 'Login', pageFlag: false }
     );
   }
 
@@ -34,7 +34,7 @@ export class AppController {
   ){
     return res.render(
       'register',
-      { pageTitle: 'Register' }
+      { pageTitle: 'Register', pageFlag: true }
     );
   }
 
@@ -57,12 +57,8 @@ export class AppController {
     @Body() userDTO: UserDTO,
     @Res() res: Response
   ){
-    try{
       await this.usersService.createUser(userDTO);
       return res.redirect('/login');
-    } catch {
-      throw new InternalServerErrorException();
-    }
   }
 
   @Post('/logout')

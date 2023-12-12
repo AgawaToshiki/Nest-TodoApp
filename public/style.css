@@ -36,6 +36,11 @@ main {
 main.top {
     margin: 15px auto;
 }
+a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+}
 
 
 header ul {
@@ -53,13 +58,8 @@ header ul {
     display: inline-block;
     width: 100px;
     padding: 10px 0px;
-    /* background-color: #FEC463; */
-    /* border-bottom: 3px #333 solid; */
-    /* border-radius: 5px; */
-    color: #333;
     font-weight: bold;
     font-size: 20px;
-    text-decoration: none;
     text-align: center;
     transition: all .1s;
 }
@@ -76,11 +76,10 @@ header ul {
 }
 .nav-list a:hover {
     top: -3px;
-    /* box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3); */
 }
 
 
-.add-task {
+.wrapper {
     width: 500px;
 }
 .submit-box {
@@ -105,10 +104,6 @@ header ul {
     word-break: break-all;
 }
 
-
-.task-list {
-    width: 500px;
-}
 .task-card {
     margin: 10px auto;
     padding: 15px 20px;
@@ -124,18 +119,17 @@ header ul {
 }
 
 
-.submit-button-box {
+.button-box {
     display: flex;
     align-items: center;
     column-gap: 5px;
     margin: 10px 0;
 }
-.submit-button-box.login {
+.button-box.center-wrap {
     justify-content: center;
     column-gap: 30px;
-    width: 500px;
 }
-.submit-button {
+.button {
     padding: 5px 10px;
     background-color: #FEC463;
     border: 2px #333 solid;
@@ -143,24 +137,19 @@ header ul {
     cursor: pointer;
     font-size: 12px;
 }
-.submit-button:hover {
+.button:hover {
     background-color: rgba(254, 196, 99, 0.7);
 }
-.submit-button.invisible {
+.button.invisible {
     margin-left: 20px;
     background-color: rgba(31,30,30,0);
 }
-.submit-button.invisible:hover {
+.button.invisible:hover {
     background-color: rgba(31,30,30,0.1);
 }
-.login-button {
+.large-button {
     width: 135px;
     padding: 15px 0;
-    background-color: #FEC463;
-    border: 2px #333 solid;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
     text-align: center;
 }
 .register {
