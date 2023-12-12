@@ -1,16 +1,21 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Request } from 'express';
 import { User } from '../models/users.model';
+import { Task } from '../models/tasks.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcryptjs';
 import { UserDTO } from './user.dto';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User)
-    private userModel: typeof User
+    private userModel: typeof User,
+    @InjectModel(Task)
+    private taskModel: typeof Task,
+    private sequelize: Sequelize
   ){}
 
   async createUser(user: UserDTO): Promise<User> {
@@ -54,11 +59,22 @@ export class UsersService {
     });
   }
 
-  async doDeleteUser(userId: string): Promise<number> {
-    return this.userModel.destroy({
-      where: {
-        id: userId,
-      }
-    })
+  async doDeleteUser(userId: string) {
+    try{
+      await this.sequelize.transaction(async () => {
+        await this.taskModel.destroy({
+          where: {
+            userid: userId
+          }
+        });
+        await this.userModel.destroy({
+          where: {
+            id : userId
+          }
+        });
+      })
+    }catch(err){
+      throw new InternalServerErrorException();
+    }
   }
 }

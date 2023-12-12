@@ -82,7 +82,7 @@ export class AppController {
   ){
     const user = req.user;
     await this.usersService.destroySession(req);
-    const deleteUser = await this.usersService.doDeleteUser(user.id);
+    await this.usersService.doDeleteUser(user.id);
     res.redirect('/')
   }
 

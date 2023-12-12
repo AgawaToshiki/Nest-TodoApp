@@ -23,6 +23,6 @@ export class User extends Model<User> {
     })
     updatedAt: Date;
 
-    @HasMany(() => Task, 'userid')
+    @HasMany(() => Task, { onDelete: 'CASCADE'})
     tasks: Task[]
 }
