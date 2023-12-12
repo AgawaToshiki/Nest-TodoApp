@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Res, UseGuards, HttpCode, Body, Req } from '@nestjs/common';
+import { Controller, Get, Post, Res, UseGuards, HttpCode, Body, Req, InternalServerErrorException } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { UsersService } from './users/users.service';
@@ -28,15 +28,6 @@ export class AppController {
     );
   }
 
-  @UseGuards(LocalAuthGuard)
-  @Post('/login')
-  @HttpCode(200)
-  async login(
-    @Res() res: Response,
-  ) {
-    return res.redirect("/tasks")
-  }
-
   @Get('/register')
   async GetRegister(
     @Res() res: Response
@@ -45,6 +36,19 @@ export class AppController {
       'register',
       { pageTitle: 'Register' }
     );
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('/login')
+  @HttpCode(200)
+  async login(
+    @Res() res: Response,
+  ) {
+    try{
+      return res.redirect("/tasks")
+    }catch{
+      throw new InternalServerErrorException();
+    }
   }
 
   @Post('/register')
@@ -56,8 +60,8 @@ export class AppController {
     try{
       await this.usersService.createUser(userDTO);
       return res.redirect('/login');
-    } catch(error) {
-      console.log(error);
+    } catch {
+      throw new InternalServerErrorException();
     }
   }
 
@@ -66,16 +70,23 @@ export class AppController {
     @Req() req: Request,
     @Res() res: Response
   ): Promise<void>{
+    const destroySession = (req: Request): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        req.session.destroy((err)=>{
+          if(err){
+            reject(err);
+          }else{
+            resolve();
+          }
+        });
+      });
+    }
     try{
-      req.session.destroy((err) => {
-        if(err) {
-          console.log(err)
-        }else{
-          res.redirect('/')
-        }
-      })
-    } catch(error) {
-      console.error(error);
+      await destroySession(req);
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    }catch{
+      throw new InternalServerErrorException('Failed to destroy session.');
     }
   }
 

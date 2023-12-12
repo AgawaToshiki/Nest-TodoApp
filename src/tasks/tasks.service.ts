@@ -13,32 +13,38 @@ export class TasksService {
     private taskModel: typeof Task
   ){}
 
-  async doGetAllTask(id: string): Promise<Task[]> {
+  async doGetAllTask(userId: string): Promise<Task[]> {
     return this.taskModel.findAll<Task>({
       attributes:['title', 'deadline', 'id'],
       include: [
         { 
           model: User, 
-          where: { id: id } 
+          where: { id: userId } 
         }
       ]
     });
   }
 
-  async doGetTask(id: string): Promise<Task> {
+  async doGetTask(id: string, userId: string): Promise<Task> {
     return this.taskModel.findOne({
+      include: [
+        {
+          model: User,
+          where: { id: userId }
+        }
+      ],
       where: {
         id: id
       }
     })
   }
 
-  async doGetSearchTask(keyword: string, id: string): Promise<Task[]> {
+  async doGetSearchTask(keyword: string, userId: string): Promise<Task[]> {
     const searchTasks = this.taskModel.findAll<Task>({
       include:[
         {
           model: User,
-          where: { id: id }
+          where: { id: userId }
         }
       ],
       where: {
@@ -50,18 +56,18 @@ export class TasksService {
     return searchTasks
   }
 
-  async doPostTask(item: TaskDTO, id: string): Promise<Task> {
+  async doPostTask(item: TaskDTO, userId: string): Promise<Task> {
     const newTask = {
       id: uuidv4(),
       title: item.title,
       deadline: new Date(item.deadline),
       createdAt: new Date,
-      userid: id
+      userid: userId
     }
     return this.taskModel.create(newTask)
   }
 
-  async doUpdateTask(id: string, item: TaskDTO): Promise<number>{
+  async doUpdateTask(item: TaskDTO, id: string, userId: string): Promise<number>{
     const [affectedCount] = await this.taskModel.update(
       {
         title: item.title,
@@ -69,17 +75,19 @@ export class TasksService {
       },
       {
         where: {
-          id: id
+          id: id,
+          userid: userId
         }
       }
     )
     return affectedCount
   }
 
-  async doDeleteTask(id: string): Promise<number> {
+  async doDeleteTask(id: string, userId: string): Promise<number> {
     return this.taskModel.destroy({
       where: {
-        id: id
+        id: id,
+        userid: userId
       }
     })
   }

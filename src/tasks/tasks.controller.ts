@@ -6,6 +6,10 @@ import { format } from 'date-fns';
 import { formatTasks } from '../utils';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
 
+interface RequestUser {
+  id: string;
+  username: string;
+}
 
 @Controller('tasks')
 @UseGuards(AuthenticatedGuard)
@@ -16,7 +20,7 @@ export class TasksController {
   async findAllTask(
     @Query('search') search: string,
     @Res() res: Response,
-    @Req() req: { user: { id: string, username: string } }
+    @Req() req: { user: RequestUser }
   ){
     if(search){
       const searchTasks = await this.tasksService.doGetSearchTask(search, req.user.id);
@@ -27,6 +31,7 @@ export class TasksController {
           tasks: formatSearchTasks,
           search: search,
           pageTitle: 'TaskList',
+          user: req.user,
         }
       );
     }else{
@@ -38,6 +43,7 @@ export class TasksController {
           tasks: formatTaskList,
           search: !!search,
           pageTitle: 'TaskList',
+          user: req.user,
         }
       );
     }
@@ -45,21 +51,23 @@ export class TasksController {
 
   @Get('/add')
   addTask(
-    @Res() res: Response
+    @Res() res: Response,
+    @Req() req: { user: RequestUser }
   ){
     const currentDate = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm');
     return res.render(
       'tasks/add',
-      { pageTitle: 'Add', currentDate: currentDate }
+      { pageTitle: 'Add', currentDate: currentDate, user: req.user }
     )
   }
 
   @Get('/edit/:id')
   async editingTask(
     @Param('id') id: string,
-    @Res() res: Response
+    @Res() res: Response,
+    @Req() req: { user: RequestUser }
   ){
-    const task = await this.tasksService.doGetTask(id);
+    const task = await this.tasksService.doGetTask(id, req.user.id);
     if(!task){
       throw new NotFoundException()
     }
@@ -71,7 +79,8 @@ export class TasksController {
         title: task.title, 
         deadline: format(task.deadline, 'yyyy-MM-dd\'T\'HH:mm'),
         currentDate: currentDate,
-        pageTitle: 'Edit'
+        pageTitle: 'Edit',
+        user: req.user
       }
     );
   }
@@ -80,7 +89,7 @@ export class TasksController {
   async createTask(
     @Body() taskDTO: TaskDTO,
     @Res() res: Response,
-    @Req() req: { user: { id: string, username: string } }
+    @Req() req: { user: RequestUser }
   ){
       await this.tasksService.doPostTask(
         taskDTO,
@@ -93,11 +102,13 @@ export class TasksController {
   async updateTask(
     @Param('id') id: string,
     @Body() taskDTO: TaskDTO,
-    @Res() res: Response
+    @Res() res: Response,
+    @Req() req: { user: RequestUser }
   ){
       const task = await this.tasksService.doUpdateTask(
+        taskDTO,
         id,
-        taskDTO
+        req.user.id
       );
       if(!task){
         throw new NotFoundException()
@@ -108,9 +119,10 @@ export class TasksController {
   @Post('/delete/:id')
   async deleteTask(
     @Param('id') id: string,
-    @Res() res: Response
+    @Res() res: Response,
+    @Req() req: { user: RequestUser }
   ){
-      const task = await this.tasksService.doDeleteTask(id);
+      const task = await this.tasksService.doDeleteTask(id, req.user.id);
       if(!task){
         throw new NotFoundException()
       }
