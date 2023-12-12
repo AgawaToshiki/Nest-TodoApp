@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { Request } from 'express';
 import { User } from '../models/users.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
@@ -39,5 +40,25 @@ export class UsersService {
         id: id
       }
     })
-}
+  }
+
+  async destroySession(req: Request): Promise<void> {
+    return new Promise((resolve, reject) => {
+      req.session.destroy((err)=>{
+        if(err){
+          reject(err);
+        }else{
+          resolve();
+        }
+      });
+    });
+  }
+
+  async doDeleteUser(userId: string): Promise<number> {
+    return this.userModel.destroy({
+      where: {
+        id: userId,
+      }
+    })
+  }
 }

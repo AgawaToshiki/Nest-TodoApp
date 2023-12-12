@@ -3,6 +3,7 @@ import { Response, Request } from 'express';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { UsersService } from './users/users.service';
 import { UserDTO } from './users/user.dto';
+import { RequestUser } from 'src/interface';
 
 @Controller()
 export class AppController {
@@ -66,24 +67,24 @@ export class AppController {
     @Req() req: Request,
     @Res() res: Response
   ): Promise<void>{
-    const destroySession = (req: Request): Promise<void> => {
-      return new Promise((resolve, reject) => {
-        req.session.destroy((err)=>{
-          if(err){
-            reject(err);
-          }else{
-            resolve();
-          }
-        });
-      });
-    }
     try{
-      await destroySession(req);
+      await this.usersService.destroySession(req);
       res.clearCookie('connect.sid');
       res.redirect('/');
     }catch{
       throw new InternalServerErrorException('Failed to destroy session.');
     }
+  }
+
+  @Post('/deleteUser')
+  async deleteUser(
+    @Req() req: Request,
+    @Res() res: Response
+  ){
+    // const user: RequestUser = req.user;
+    // await this.usersService.destroySession(req);
+    // const deleteUser = await this.usersService.doDeleteUser(user.id);
+    res.redirect('/')
   }
 
 }

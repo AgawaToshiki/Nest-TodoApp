@@ -5,11 +5,7 @@ import { TaskDTO } from './tasks.dto';
 import { format } from 'date-fns';
 import { formatTasks } from '../utils';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
-
-interface RequestUser {
-  id: string;
-  username: string;
-}
+import { RequestUser } from 'src/interface';
 
 @Controller('tasks')
 @UseGuards(AuthenticatedGuard)
