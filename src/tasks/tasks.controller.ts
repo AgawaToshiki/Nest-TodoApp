@@ -1,11 +1,10 @@
 import { Body, Controller, UseGuards, Get, Param, Post, Query, Res, Req, NotFoundException } from '@nestjs/common';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { TasksService } from './tasks.service';
 import { TaskDTO } from './tasks.dto';
 import { format } from 'date-fns';
 import { formatTasks } from '../utils';
 import { AuthenticatedGuard } from 'src/auth/authenticated.guard';
-import { RequestUser } from 'src/interface';
 
 @Controller('tasks')
 @UseGuards(AuthenticatedGuard)
@@ -16,7 +15,7 @@ export class TasksController {
   async findAllTask(
     @Query('search') search: string,
     @Res() res: Response,
-    @Req() req: { user: RequestUser }
+    @Req() req: Request
   ){
     if(search){
       const searchTasks = await this.tasksService.doGetSearchTask(search, req.user.id);
@@ -48,7 +47,7 @@ export class TasksController {
   @Get('/add')
   addTask(
     @Res() res: Response,
-    @Req() req: { user: RequestUser }
+    @Req() req: Request
   ){
     const currentDate = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm');
     return res.render(
@@ -61,7 +60,7 @@ export class TasksController {
   async editingTask(
     @Param('id') id: string,
     @Res() res: Response,
-    @Req() req: { user: RequestUser }
+    @Req() req: Request
   ){
     const task = await this.tasksService.doGetTask(id, req.user.id);
     if(!task){
@@ -85,7 +84,7 @@ export class TasksController {
   async createTask(
     @Body() taskDTO: TaskDTO,
     @Res() res: Response,
-    @Req() req: { user: RequestUser }
+    @Req() req: Request
   ){
     await this.tasksService.doPostTask(
       taskDTO,
@@ -99,7 +98,7 @@ export class TasksController {
     @Param('id') id: string,
     @Body() taskDTO: TaskDTO,
     @Res() res: Response,
-    @Req() req: { user: RequestUser }
+    @Req() req: Request
   ){
     const task = await this.tasksService.doUpdateTask(
       taskDTO,
@@ -116,7 +115,7 @@ export class TasksController {
   async deleteTask(
     @Param('id') id: string,
     @Res() res: Response,
-    @Req() req: { user: RequestUser }
+    @Req() req: Request
   ){
     const task = await this.tasksService.doDeleteTask(id, req.user.id);
     if(!task){

@@ -3,7 +3,6 @@ import { Response, Request } from 'express';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { UsersService } from './users/users.service';
 import { UserDTO } from './users/user.dto';
-import { RequestUser } from 'src/interface';
 
 @Controller()
 export class AppController {
@@ -81,9 +80,9 @@ export class AppController {
     @Req() req: Request,
     @Res() res: Response
   ){
-    // const user: RequestUser = req.user;
-    // await this.usersService.destroySession(req);
-    // const deleteUser = await this.usersService.doDeleteUser(user.id);
+    const user = req.user;
+    await this.usersService.destroySession(req);
+    const deleteUser = await this.usersService.doDeleteUser(user.id);
     res.redirect('/')
   }
 
