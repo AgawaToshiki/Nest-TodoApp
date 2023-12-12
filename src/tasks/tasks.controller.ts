@@ -1,4 +1,4 @@
-import { Body, Controller, UseGuards, Get, Param, Post, Query, Res, Req } from '@nestjs/common';
+import { Body, Controller, UseGuards, Get, Param, Post, Query, Res, Req, NotFoundException } from '@nestjs/common';
 import { Response } from 'express';
 import { TasksService } from './tasks.service';
 import { TaskDTO } from './tasks.dto';
@@ -60,6 +60,9 @@ export class TasksController {
     @Res() res: Response
   ){
     const task = await this.tasksService.doGetTask(id);
+    if(!task){
+      throw new NotFoundException()
+    }
     const currentDate = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm');
     return res.render(
       'tasks/edit',
@@ -79,15 +82,11 @@ export class TasksController {
     @Res() res: Response,
     @Req() req: { user: { id: string, username: string } }
   ){
-    try{
       await this.tasksService.doPostTask(
         taskDTO,
         req.user.id
       );
       return res.redirect('/tasks');
-    } catch(error) {
-      console.error(error);
-    }
   }
 
   @Post('/edit/:id')
@@ -96,15 +95,14 @@ export class TasksController {
     @Body() taskDTO: TaskDTO,
     @Res() res: Response
   ){
-    try{
-      await this.tasksService.doUpdateTask(
+      const task = await this.tasksService.doUpdateTask(
         id,
         taskDTO
       );
+      if(!task){
+        throw new NotFoundException()
+      }
       return res.redirect('/tasks');
-    } catch(error) {
-      console.error(error);
-    }
   }
 
   @Post('/delete/:id')
@@ -112,12 +110,11 @@ export class TasksController {
     @Param('id') id: string,
     @Res() res: Response
   ){
-    try{
-      await this.tasksService.doDeleteTask(id);
+      const task = await this.tasksService.doDeleteTask(id);
+      if(!task){
+        throw new NotFoundException()
+      }
       return res.redirect('/tasks')
-    } catch(error) {
-      console.error(error)
-    }
   }
   
 }

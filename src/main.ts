@@ -7,6 +7,7 @@ import * as passport from 'passport';
 import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './app.filter';
 
 
 async function bootstrap() {
@@ -31,6 +32,7 @@ async function bootstrap() {
   hbs.registerPartials(join(__dirname, "..", "views", "partials"));
   app.setViewEngine('hbs');
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(new HttpExceptionFilter());
   app.disable('x-powered-by');
 
   await app.listen(3000);
