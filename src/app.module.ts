@@ -12,8 +12,10 @@ import { User } from './models/users.model';
 
 @Module({
   imports: [
-    TasksModule,
-    UsersModule,
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local'],
+      isGlobal: true,
+    }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST || 'localhost',
@@ -23,12 +25,9 @@ import { User } from './models/users.model';
       database: process.env.POSTGRES_DATABASE || 'agawa',
       models: [Task, User],
     }),
-    ConfigModule.forRoot({
-      envFilePath: ['.env.development.local'],
-      isGlobal: true,
-    }),
-    AuthModule,
+    TasksModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
