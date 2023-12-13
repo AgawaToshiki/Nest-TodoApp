@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
-    "database": "nest_todo",
+    "username": "agawa",
+    "password": "agawa",
+    "database": "agawa",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "test": {
-    "username": "root",
-    "password": "root",
-    "database": "nest_todo",
+    "username": "agawa",
+    "password": "agawa",
+    "database": "agawa",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
-    "password": "root",
-    "database": "nest_todo",
+    "username": "agawa",
+    "password": "agawa",
+    "database": "agawa",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
 }
