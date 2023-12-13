@@ -56,7 +56,7 @@ header ul {
     position: relative;
     top: 0;
     display: inline-block;
-    width: 100px;
+    width: 90px;
     padding: 10px 0px;
     font-weight: bold;
     font-size: 20px;
@@ -135,7 +135,7 @@ header ul {
     border: 2px #333 solid;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
 }
 .button:hover {
     background-color: rgba(254, 196, 99, 0.7);
