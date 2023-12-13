@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -15,12 +16,16 @@ import { User } from './models/users.model';
     UsersModule,
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'agawa',
-      password: 'agawa',
-      database: 'agawa',
+      host: process.env.POSTGRES_HOST || 'localhost',
+      port: parseInt(process.env.POSTGRES_PORT, 10) || 5432,
+      username: process.env.POSTGRES_USER || 'agawa',
+      password: process.env.POSTGRES_PASSWORD || 'agawa',
+      database: process.env.POSTGRES_DATABASE || 'agawa',
       models: [Task, User],
+    }),
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local'],
+      isGlobal: true,
     }),
     AuthModule,
     UsersModule,
