@@ -2,20 +2,20 @@
 <body>
     {{>header}}
     <main>
-        <div class="task-list">
+        <div class="wrapper">
             <div class="search-task">
                 {{#if search}}
                 <form action="/tasks" method="GET">
                     <div class="submit-box">
                         <input type="text" name="search" value="{{search}}" disabled>
-                        <button type="submit" class="submit-button search">クリア</button>
+                        <button type="submit" class="button search">Clear</button>
                     </div>
                 </form>
                 {{else}}
                 <form action="/tasks" method="GET" autocomplete="off">
                     <div class="submit-box">
                         <input type="text" name="search">
-                        <button type="submit" class="submit-button search">検索</button>
+                        <button type="submit" class="button search">Search</button>
                     </div>
                 </form>
                 {{/if}}
@@ -27,12 +27,12 @@
                     <p class="task">Task:{{title}}</p>
                     <p>Deadline:{{deadline}}</p>
                 </div>
-                <div class="submit-button-box">
+                <div class="button-box">
                     <form action="/tasks/edit/{{id}}" method="GET">
-                        <button type="submit" class="submit-button">Edit</button>
+                        <button type="submit" class="button">Edit</button>
                     </form>
                     <form action="/tasks/delete/{{id}}" method="POST">
-                        <button type="submit" class="submit-button">Delete</button>
+                        <button type="submit" class="button">Delete</button>
                     </form>
                 </div>
             </div>
@@ -44,6 +44,6 @@
             {{/if}}
         </div>
     </main>
+    <script type="text/javascript" src="/index.js"></script>
 </body>
-<script type="text/javascript" src="/js/authorization.js"></script>
 </html>

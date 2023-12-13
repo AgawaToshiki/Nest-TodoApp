@@ -1,12 +1,12 @@
-import { Controller, Get, Post, Res, Req, UseGuards, Body } from '@nestjs/common';
-import { Request, Response } from 'express';
-import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { SignInDTO } from './auth/auth.dto';
+import { Controller, Get, Post, Res, UseGuards, HttpCode, Body, Req, InternalServerErrorException } from '@nestjs/common';
+import { Response, Request } from 'express';
+import { LocalAuthGuard } from './auth/local-auth.guard';
+import { UsersService } from './users/users.service';
+import { UserDTO } from './users/user.dto';
 
 @Controller()
 export class AppController {
-  constructor(private authService: AuthService) {}
+  constructor(private usersService: UsersService) {}
 
   @Get()
   root(
@@ -14,7 +14,7 @@ export class AppController {
   ){
     return res.render(
       'index',
-      { pageTitle: 'Todo-App' }
+      { pageTitle: 'Welcome to Todo-App!!!' }
     );
   }
 
@@ -24,7 +24,7 @@ export class AppController {
   ){
     return res.render(
       'login',
-      { pageTitle: 'Login' }
+      { pageTitle: 'Login', pageFlag: false }
     );
   }
 
@@ -34,18 +34,56 @@ export class AppController {
   ){
     return res.render(
       'register',
-      { pageTitle: 'Register' }
+      { pageTitle: 'Register', pageFlag: true }
     );
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('/login')
+  @HttpCode(200)
   async login(
-    @Body() signInDTO: SignInDTO,
-    @Res() res: Response
+    @Res() res: Response,
   ) {
-    const token = await this.authService.login(signInDTO);
-    return res.json({
-      token: token.access_token
-    });
+    try{
+      return res.redirect("/tasks")
+    }catch{
+      throw new InternalServerErrorException();
+    }
   }
+
+  @Post('/register')
+  @HttpCode(200)
+  async register(
+    @Body() userDTO: UserDTO,
+    @Res() res: Response
+  ){
+      await this.usersService.createUser(userDTO);
+      return res.redirect('/login');
+  }
+
+  @Post('/logout')
+  async logout(
+    @Req() req: Request,
+    @Res() res: Response
+  ): Promise<void>{
+    try{
+      await this.usersService.destroySession(req);
+      res.clearCookie('connect.sid');
+      res.redirect('/');
+    }catch{
+      throw new InternalServerErrorException('Failed to destroy session.');
+    }
+  }
+
+  @Post('/deleteUser')
+  async deleteUser(
+    @Req() req: Request,
+    @Res() res: Response
+  ){
+    const user = req.user;
+    await this.usersService.destroySession(req);
+    await this.usersService.doDeleteUser(user.id);
+    res.redirect('/')
+  }
+
 }

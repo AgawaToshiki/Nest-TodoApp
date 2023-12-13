@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Task } from '../models/tasks.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import { TaskDTO } from './tasks.dto';
 import { Op } from 'sequelize';
+import { User } from 'src/models/users.model';
 
 @Injectable()
 export class TasksService {
@@ -12,20 +13,40 @@ export class TasksService {
     private taskModel: typeof Task
   ){}
 
-  async doGetAllTask(): Promise<Task[]> {
-    return this.taskModel.findAll<Task>();
+  async doGetAllTask(userId: string): Promise<Task[]> {
+    return this.taskModel.findAll<Task>({
+      attributes:['title', 'deadline', 'id'],
+      include: [
+        { 
+          model: User, 
+          where: { id: userId } 
+        }
+      ]
+    });
   }
 
-  async doGetTask(id: string): Promise<Task> {
+  async doGetTask(id: string, userId: string): Promise<Task> {
     return this.taskModel.findOne({
+      include: [
+        {
+          model: User,
+          where: { id: userId }
+        }
+      ],
       where: {
         id: id
       }
     })
   }
 
-  async doGetSearchTask(keyword: string): Promise<Task[]> {
+  async doGetSearchTask(keyword: string, userId: string): Promise<Task[]> {
     const searchTasks = this.taskModel.findAll<Task>({
+      include:[
+        {
+          model: User,
+          where: { id: userId }
+        }
+      ],
       where: {
         title: {
           [Op.like]: `%${keyword}%`
@@ -35,17 +56,24 @@ export class TasksService {
     return searchTasks
   }
 
-  async doPostTask(item: TaskDTO): Promise<Task> {
+  async doPostTask(item: TaskDTO, userId: string): Promise<Task> {
+    if(item.title.trim() == ""){
+      throw new BadRequestException();
+    }
     const newTask = {
       id: uuidv4(),
       title: item.title,
       deadline: new Date(item.deadline),
-      createdAt: new Date
+      createdAt: new Date,
+      userid: userId
     }
     return this.taskModel.create(newTask)
   }
 
-  async doUpdateTask(id: string, item: TaskDTO): Promise<number>{
+  async doUpdateTask(item: TaskDTO, id: string, userId: string): Promise<number>{
+    if(item.title.trim() == ""){
+      throw new BadRequestException();
+    }
     const [affectedCount] = await this.taskModel.update(
       {
         title: item.title,
@@ -53,17 +81,19 @@ export class TasksService {
       },
       {
         where: {
-          id: id
+          id: id,
+          userid: userId
         }
       }
     )
     return affectedCount
   }
 
-  async doDeleteTask(id: string): Promise<number> {
+  async doDeleteTask(id: string, userId: string): Promise<number> {
     return this.taskModel.destroy({
       where: {
-        id: id
+        id: id,
+        userid: userId
       }
     })
   }

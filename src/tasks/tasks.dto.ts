@@ -2,11 +2,11 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class TaskDTO {
 
-    @IsNotEmpty({ message: 'タイトルは必須です。' })
+    @IsNotEmpty()
     @IsString()
     title: string;
     
-    @IsNotEmpty({ message: '期限は必須です。' })
+    @IsNotEmpty()
     @IsString()
     deadline: string;
 }

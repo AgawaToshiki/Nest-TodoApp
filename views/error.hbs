@@ -1,0 +1,16 @@
+{{>head}}
+<body class="top-page">
+      <h1 class="top">Error</h1>
+      <p>{{status}}</p>
+      <p>{{message}}</p>
+      {{#if user}}
+        <div class="button-box wrapper center-wrap">
+            <a href="/tasks" class="button large-button">Back to TaskList</a>
+        </div>
+      {{else}}
+        <div class="button-box wrapper center-wrap">
+            <a href="/" class="button large-button">Back to Top</a>
+        </div>
+      {{/if}}
+</body>
+</html>

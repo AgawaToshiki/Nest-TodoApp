@@ -1,4 +1,5 @@
-import { Table, Column, Model, PrimaryKey } from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import { User } from './users.model';
 
 @Table
 export class Task extends Model<Task> {
@@ -22,4 +23,12 @@ export class Task extends Model<Task> {
     })
     updatedAt: Date;
 
+    @ForeignKey(() => User)
+    @Column({
+        field: 'userid'
+    })
+    userid: string;
+
+    @BelongsTo(() => User, 'userid')
+    user: User
 }

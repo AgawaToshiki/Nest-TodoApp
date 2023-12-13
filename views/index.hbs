@@ -1,14 +1,12 @@
 {{>head}}
-<body>
-    <h1 class="h-title">{{pageTitle}}</h1>
-    <main>
-        <div class="submit-button-box login">
-            <form action="/login" method="GET" autocomplete="off">
-                <button type="submit" class="submit-button login-button">Login</button>
-            </form>
-            <form action="/register" method="GET" autocomplete="off">
-                <button type="submit" class="submit-button login-button">Register</button>
-            </form>
+<body class="top-page">
+    <header class="top">
+        <h1>{{pageTitle}}</h1>
+    </header>
+    <main class="top">
+        <div class="button-box wrapper center-wrap">
+            <a href="/login" class="button large-button">Login</a>
+            <a href="/Register" class="button large-button">Register</a>
         </div>
     </main>
 </body>

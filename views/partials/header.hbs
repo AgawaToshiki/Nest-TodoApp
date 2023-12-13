@@ -2,12 +2,33 @@
     <h1>{{pageTitle}}</h1>
     <nav id="nav">
         <ul>
+            {{#if user}}
             <li class="nav-list">
                 <a href="/tasks/add">Add</a>
             </li>
             <li class="nav-list">
                 <a href="/tasks">List</a>
             </li>
+            <div class="button-box">
+                <form action="/logout" method="POST">
+                    <button class="button logout">Logout</button>
+                </form>
+                <button class="button logout" id="delete-user">DeleteAccount</button>
+            </div>
+            {{else}}
+            <li class="nav-list">
+                <a href="/">Top</a>
+            </li>
+            {{#if pageFlag}}
+            <li class="nav-list">
+                <a href="/login">Login</a>
+            </li>
+            {{else}}
+            <li class="nav-list">
+                <a href="/register">Register</a>
+            </li>
+            {{/if}}
+            {{/if}}
         </ul>
     </nav>
 </header>
