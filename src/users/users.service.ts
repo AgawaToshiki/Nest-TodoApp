@@ -22,14 +22,23 @@ export class UsersService {
     if(user.username.trim() == "" || user.password.trim() == ""){
       throw new BadRequestException();
     }
-      const newUser = {
-        id: uuidv4(),
-        username: user.username,
-        password: await bcrypt.hash(user.password, 12),
-        createdAt: new Date
+    const findUsername = await this.userModel.findOne({
+      where: {
+        username: user.username
       }
-      return this.userModel.create(newUser)
+    });
+
+    if(findUsername){
+      throw new BadRequestException('Bad Request Exception: 既に存在するユーザです')
     }
+    const newUser = {
+      id: uuidv4(),
+      username: user.username,
+      password: await bcrypt.hash(user.password, 12),
+      createdAt: new Date
+    }
+    return this.userModel.create(newUser)
+  }
   
   async findByUsername(username: string): Promise<User> {
       return this.userModel.findOne({
