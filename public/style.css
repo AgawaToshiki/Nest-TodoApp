@@ -19,7 +19,7 @@ header {
     justify-content: space-between;
     align-items: center;
     column-gap: 30px;
-    width: 500px;
+    width: 600px;
     margin: 0 auto 20px;
 }
 header.top {
@@ -80,7 +80,7 @@ header ul {
 
 
 .wrapper {
-    width: 500px;
+    width: 600px;
 }
 .submit-box {
     display: flex;
