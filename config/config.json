@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "agawa",
+    "password": "agawa",
+    "database": "agawa",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "agawa",
+    "password": "agawa",
+    "database": "agawa",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "agawa",
+    "password": "agawa",
+    "database": "agawa",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
