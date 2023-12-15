@@ -13,7 +13,7 @@ import { User } from './models/users.model';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local'],
+      envFilePath: ['.env.development'],
       isGlobal: true,
     }),
     SequelizeModule.forRoot({

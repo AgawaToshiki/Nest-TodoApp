@@ -12,6 +12,7 @@ import { HttpExceptionFilter } from './app.filter';
 
 async function bootstrap() {
   dotenv.config();
+  console.log('process.env.NODE_ENV:' + process.env.NODE_ENV);
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const sessionSecret = process.env.SESSION_SECRET || 'default_session_secret';
   app.use(
