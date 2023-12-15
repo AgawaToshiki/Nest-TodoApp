@@ -19,7 +19,12 @@ async function bootstrap() {
   const sessionSecret = process.env.SESSION_SECRET || 'default_session_secret';
   const RedisStore = createRedisStore(session);
   const redisClient = createClient({
-    url: process.env.REDIS_URL
+    url: process.env.REDIS_URL || 'redis://localhost:6379'
+  });
+  
+  redisClient.on('connect', () => console.log('Redis Client Connected'));
+  redisClient.on('error', (err) => {
+    console.error('Redis client error:', err);
   });
 
   app.use(
