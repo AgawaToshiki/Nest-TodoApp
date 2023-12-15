@@ -8,7 +8,8 @@ import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './app.filter';
-import redis from 'redis';
+import { createClient } from 'redis';
+import * as createRedisStore from 'connect-redis';
 
 
 async function bootstrap() {
@@ -16,8 +17,8 @@ async function bootstrap() {
   console.log('process.env.NODE_ENV:' + process.env.NODE_ENV);
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const sessionSecret = process.env.SESSION_SECRET || 'default_session_secret';
-  const RedisStore = require('connect-redis')(session);
-  const redisClient = redis.createClient({
+  const RedisStore = createRedisStore(session);
+  const redisClient = createClient({
     url: process.env.REDIS_URL
   });
 
