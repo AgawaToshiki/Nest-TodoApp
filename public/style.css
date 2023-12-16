@@ -109,6 +109,9 @@ header ul {
 .submit-box input:focus {
     outline: none;
 }
+.submit-box.search {
+    column-gap: 10px;
+}
 .submit-box.search label {
     width: 15%;
 }
@@ -203,6 +206,9 @@ header ul {
     display: flex;
     justify-content: flex-end;
     width: 15%;
+}
+.search-button button {
+    min-width: 90px;
 }
 
 .drop-box {

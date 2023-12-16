@@ -6,9 +6,11 @@
             <div class="search-task">
                 {{#if search}}
                 <form action="/tasks" method="GET">
-                    <div class="submit-box">
+                    <div class="submit-box search">
                         <input type="text" name="search" value="{{search}}" disabled>
-                        <button type="submit" class="button search">Clear</button>
+                        <div class="search-button">
+                            <button type="submit" class="button">Clear</button>
+                        </div>
                     </div>
                 </form>
                 {{else}}
