@@ -9,12 +9,21 @@
             <li class="nav-list">
                 <a href="/tasks">List</a>
             </li>
-            <div class="button-box">
-                <form action="/logout" method="POST">
-                    <button class="button logout">Logout</button>
-                </form>
-                <button class="button logout" id="delete-user">DeleteAccount</button>
+        <div class="drop-box">
+            <button class="toggle-button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="dropdown">
+                <div class="button-box column">
+                    <form action="/logout" method="POST">
+                        <button class="button">Logout</button>
+                    </form>
+                    <button class="button" id="delete-user">DeleteAccount</button>
+                </div>
             </div>
+        </div>
             {{else}}
             <li class="nav-list">
                 <a href="/">Top</a>

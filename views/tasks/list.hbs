@@ -13,9 +13,11 @@
                 </form>
                 {{else}}
                 <form action="/tasks" method="GET" autocomplete="off">
-                    <div class="submit-box">
+                    <div class="submit-box search">
                         <input type="text" name="search">
-                        <button type="submit" class="button search">Search</button>
+                        <div class="search-button">
+                            <button type="submit" class="button">Search</button>
+                        </div>
                     </div>
                 </form>
                 {{/if}}
@@ -24,8 +26,12 @@
             {{#each tasks}}
             <div class="task-card">
                 <div>
-                    <p class="task">Task:{{title}}</p>
-                    <p>Deadline:{{deadline}}</p>
+                    <dl class="task-list">
+                        <dt class="dt">Task</dt>
+                        <dd class="dd">{{title}}</dd>
+                        <dt class="dt">Deadline</dt>
+                        <dd class="dd">{{deadline}}</dd>
+                    </dl>
                 </div>
                 <div class="button-box">
                     <form action="/tasks/edit/{{id}}" method="GET">
@@ -45,5 +51,6 @@
         </div>
     </main>
     <script type="text/javascript" src="/index.js"></script>
+    <script type="text/javascript" src="/task.js"></script>
 </body>
 </html>
