@@ -12,6 +12,7 @@ body.top-page {
     flex-direction: column;
     height: 100%;
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     box-sizing: border-box;
 }
 header {
@@ -100,6 +101,10 @@ header ul {
     background-color: #F2F0E9;
     border: none;
     border-bottom: 1px #333 solid;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
 }
 .submit-box input:focus {
     outline: none;
@@ -109,6 +114,10 @@ header ul {
 }
 .submit-box.search input {
     width: 85%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
 }
 
 .task-card {
@@ -217,8 +226,8 @@ header ul {
 }
 .toggle-button span {
     display: block;
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
     background-color: #333;
     border-radius: 100%;
 }
@@ -226,7 +235,6 @@ header ul {
 .dropdown {
     display: none;
 }
-
 .dropdown.active {
     display: block;
     position: absolute;
@@ -256,7 +264,7 @@ header ul {
         width: 70px;
         font-size: 16px;
     }
-    
+
     .task-list {
         flex-direction: column;
     }
