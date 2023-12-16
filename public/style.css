@@ -19,7 +19,8 @@ header {
     justify-content: space-between;
     align-items: center;
     column-gap: 30px;
-    width: 600px;
+    max-width: 600px;
+    width: 90%;
     margin: 0 auto 20px;
 }
 header.top {
@@ -31,10 +32,11 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
 }
-main.top {
-    margin: 15px auto;
+main.top h1{
+    text-align: center;
 }
 a {
     display: block;
@@ -47,6 +49,7 @@ header ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
     column-gap: 10px;
 }
 .nav-list {
@@ -80,7 +83,8 @@ header ul {
 
 
 .wrapper {
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
 }
 .submit-box {
     display: flex;
@@ -100,16 +104,33 @@ header ul {
 .submit-box input:focus {
     outline: none;
 }
-.task {
-    word-break: break-all;
+.submit-box.search label {
+    width: 15%;
+}
+.submit-box.search input {
+    width: 85%;
 }
 
 .task-card {
     margin: 10px auto;
-    padding: 15px 20px;
+    padding: 10px 25px;
     background: #FDFBF5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
+}
+.task-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+.task-list dt {
+    width: 15%;
+    margin: 10px 0;
+}
+.task-list dd {
+    width: 85%;
+    word-break: break-all;
+    margin: 10px 0;
 }
 .empty-task {
     display: flex;
@@ -129,6 +150,13 @@ header ul {
     justify-content: center;
     column-gap: 30px;
 }
+.button-box.column {
+    flex-direction: column;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    row-gap: 5px;
+    margin: 0;
+}
 .button {
     padding: 5px 10px;
     background-color: #FEC463;
@@ -136,21 +164,21 @@ header ul {
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
+    color: #333;
 }
 .button:hover {
-    background-color: rgba(254, 196, 99, 0.7);
-}
-.button.invisible {
-    margin-left: 20px;
-    background-color: rgba(31,30,30,0);
-}
-.button.invisible:hover {
-    background-color: rgba(31,30,30,0.1);
+    background-color: #FED891;
 }
 .large-button {
     width: 135px;
     padding: 15px 0;
     text-align: center;
+}
+#delete-user {
+    background-color: #FF8563;
+}
+#delete-user:hover {
+    background-color:#FFAD91;
 }
 .register {
     width: 100%;
@@ -162,6 +190,93 @@ header ul {
 .search-task {
     margin-bottom: 30px;
 }
-.search {
+.search-button {
+    display: flex;
+    justify-content: flex-end;
     width: 15%;
+}
+
+.drop-box {
+    position: relative;
+}
+
+.toggle-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 3px;
+    width: 35px;
+    height: 35px;
+    background-color: #FEC463;
+    border: 2px #333 solid;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.toggle-button:hover {
+    background-color: #FED891;
+}
+.toggle-button span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #333;
+    border-radius: 100%;
+}
+
+.dropdown {
+    display: none;
+}
+
+.dropdown.active {
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 150px;
+    margin-top: 10px;
+    padding: 20px;
+    background: rgba(51, 51, 51, 0.7);
+    border-radius: 10px;
+  }
+.dropdown-list {
+    list-style: none;
+}
+
+
+@media screen and (max-width: 768px) {
+    header {
+        column-gap: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .nav-list a {
+        width: 70px;
+        font-size: 16px;
+    }
+    
+    .task-list {
+        flex-direction: column;
+    }
+    .task-list dt {
+        margin: 0;
+    }
+
+    .submit-box {
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    .submit-box input,.submit-box label,.submit-box.search input {
+        width: 100%;
+    }
+    .search-button {
+        justify-content: flex-start;
+    }
+
+    .button-box.center-wrap {
+        flex-direction: column;
+        row-gap: 15px;
+    }
 }
