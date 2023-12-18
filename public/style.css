@@ -18,6 +18,14 @@ body.top-page {
     min-height: calc(var(--vh, 1vh) * 100);
     box-sizing: border-box;
 }
+
+input[type="text"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+}
+
 header {
     display: flex;
     justify-content: space-between;
@@ -104,10 +112,6 @@ header ul {
     background-color: #F2F0E9;
     border: none;
     border-bottom: 1px #333 solid;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
 }
 .submit-box input:focus {
     outline: none;
@@ -120,10 +124,6 @@ header ul {
 }
 .submit-box.search input {
     width: 85%;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
 }
 
 .task-card {
