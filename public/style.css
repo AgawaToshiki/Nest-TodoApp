@@ -112,6 +112,7 @@ header ul {
     background-color: #F2F0E9;
     border: none;
     border-bottom: 1px #333 solid;
+    border-radius: 0;
 }
 .submit-box input:focus {
     outline: none;
