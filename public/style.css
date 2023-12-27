@@ -279,7 +279,11 @@ header ul {
         flex-direction: column;
     }
     .task-list dt {
+        width: 100%;
         margin: 0;
+    }
+    .task-list dd {
+        width: 100%;
     }
 
     .submit-box {
